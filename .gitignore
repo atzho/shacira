@@ -22,3 +22,4 @@ val_lego/
 paper_plots/
 _results/
 env_shacira/
+*.pth

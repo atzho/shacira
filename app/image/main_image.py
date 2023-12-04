@@ -54,6 +54,8 @@ def parse_args():
                            help='Use high-level profiling for the trainer.')
     log_group.add_argument('--resume', action='store_true', default=False,
                            help='Resume training from the latest checkpoint.')
+    log_group.add_argument('--load_pred_weights', action='store_true', default=False,
+                           help='Load meta predicted initalization weights.')
     log_group.add_argument('--log-every', type=int, default=100, 
                                help='Log data every N iterations')
     log_group.add_argument('--log-dir', type=str, default='_results/logs/',
@@ -568,6 +570,9 @@ if __name__ == "__main__":
                                writer=writer)
         if args.resume and os.path.exists(os.path.join(args.log_dir, args.exp_name, "resume_state.pth")):
             trainer.resume_state()
+
+        if args.load_pred_weights:
+            trainer.load_pred_weights()
             
         if args.valid_only:
             if args.valid_only_load_path:

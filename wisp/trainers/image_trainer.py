@@ -109,6 +109,14 @@ class ImageTrainer(BaseTrainer):
             #  Pointer to hold static data when initialized
             self.data = None
 
+    def load_pred_weights(self):
+        state = torch.load(os.path.join("pred_start_state.pth"))
+        for (name, param) in self.pipeline.named_parameters():
+            print(param.shape, state[name].shape)
+            #param.data = state[name]
+        #self.pipeline.load_state_dict(state["model"])
+        log.info("Loaded predicted model parameters")
+
     def pre_epoch(self):
         """
         This function runs once before the epoch.
